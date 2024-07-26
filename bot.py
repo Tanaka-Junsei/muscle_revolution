@@ -35,13 +35,13 @@ async def on_ready():
 async def on_message(message):
     # メッセージ送信者がBotだった場合は無視する
     logging.info(f'メッセージを受信しました: {message.content}')
-    if message.author.bot:
-        logging.info('Botからのメッセージは無視します')
-        return
-    # 「/neko」と発言したら「にゃーん」が返る処理
-    if message.content == 'おっぱい':
-        await message.channel.send('ちくび')
-        logging.info('ちくび と返しました')
+    # if message.author.bot:
+    #     logging.info('Botからのメッセージは無視します')
+    #     return
+    # # 「/neko」と発言したら「にゃーん」が返る処理
+    # if message.content == 'おっぱい':
+    await message.channel.send('ちくび')
+    logging.info('ちくび と返しました')
 
 # Botの起動とDiscordサーバーへの接続
 client.run(TOKEN)
