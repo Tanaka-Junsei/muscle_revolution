@@ -34,6 +34,7 @@ async def on_ready():
 @client.event
 async def on_message(message):
     # メッセージ送信者がBotだった場合は無視する
+    logging.info(f'メッセージを受信しました: {message.content}')
     if message.author.bot:
         logging.info('Botからのメッセージは無視します')
         return
