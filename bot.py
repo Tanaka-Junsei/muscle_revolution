@@ -20,6 +20,7 @@ else:
 
 # 必要なintentsを設定
 intents = discord.Intents.default()
+intents.message_content = True
 intents.messages = True
 
 # 接続に必要なオブジェクトを生成
@@ -34,14 +35,15 @@ async def on_ready():
 @client.event
 async def on_message(message):
     # メッセージ送信者がBotだった場合は無視する
-    logging.info(f'メッセージを受信しました: {message.content}')
+    logging.info(f'メッセージを受信しました: {message}')
+    logging.info(f'送信者: {message.author}')
+    logging.info(f'送信内容: {message.content}')
     if message.author.bot:
         logging.info('Botからのメッセージは無視します')
         return
-    # # 「/neko」と発言したら「にゃーん」が返る処理
-    # if message.content == 'おっぱい':
-    await message.channel.send('ちくび')
-    logging.info('ちくび と返しました')
+    if message.content == '/neko':
+        await message.channel.send('にゃーん')
+        logging.info('にゃーん と返しました')
 
 # Botの起動とDiscordサーバーへの接続
 client.run(TOKEN)
