@@ -1,4 +1,5 @@
-# インストールした dotenv を読み込む
+# bot.py
+
 from dotenv import load_dotenv
 import os
 import discord
@@ -9,8 +10,12 @@ load_dotenv()
 # 自分のBotのアクセストークンを取得
 TOKEN = os.getenv('DISCORD_BOT_TOKEN')
 
+# 必要なintentsを設定
+intents = discord.Intents.default()
+intents.messages = True
+
 # 接続に必要なオブジェクトを生成
-client = discord.Client()
+client = discord.Client(intents=intents)
 
 # 起動時に動作する処理
 @client.event
