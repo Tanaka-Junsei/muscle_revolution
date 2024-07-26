@@ -39,7 +39,7 @@ async def on_message(message):
         logging.info('Botからのメッセージは無視します')
         return
     # 「/neko」と発言したら「にゃーん」が返る処理
-    if message.content == '/neko':
+    if message.content == 'おっぱい':
         await message.channel.send('ちくび')
         logging.info('ちくび と返しました')
 
