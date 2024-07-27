@@ -6,19 +6,12 @@ import logging
 # ログ設定
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s:%(message)s')
 
-# .env ファイルを読み込む
 load_dotenv()
 
-# 自分のBotのアクセストークンを取得
 TOKEN = os.getenv('DISCORD_BOT_TOKEN')
+# CHANNEL_ID = int(os.getenv('PROD_CHANNEL_ID'))
+CHANNEL_ID = int(os.getenv('TEST_CHANNEL_ID'))
 
-# トークンが正しく読み込まれているかを確認（デバッグ用）
-if TOKEN is None:
-    logging.error("DISCORD_BOT_TOKEN is not set")
-else:
-    logging.info(f"Token: {TOKEN}")
-
-# 必要なintentsを設定
 intents = discord.Intents.default()
 intents.message_content = True
 intents.messages = True
@@ -26,24 +19,21 @@ intents.messages = True
 # 接続に必要なオブジェクトを生成
 client = discord.Client(intents=intents)
 
-# 起動時に動作する処理
+# 起動時チェック
 @client.event
 async def on_ready():
     logging.info('ログインしました')
+    logging.info(CHANNEL_ID)
 
-# メッセージ受信時に動作する処理
+# メッセージ受信時
 @client.event
 async def on_message(message):
-    # メッセージ送信者がBotだった場合は無視する
-    logging.info(f'メッセージを受信しました: {message}')
-    logging.info(f'送信者: {message.author}')
-    logging.info(f'送信内容: {message.content}')
+    logging.info(message.channel.id)
+    if message.channel.id != CHANNEL_ID:
+        return
     if message.author.bot:
-        logging.info('Botからのメッセージは無視します')
         return
     if message.content == '/neko':
         await message.channel.send('にゃーん')
-        logging.info('にゃーん と返しました')
 
-# Botの起動とDiscordサーバーへの接続
 client.run(TOKEN)
