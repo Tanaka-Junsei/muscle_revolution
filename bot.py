@@ -29,6 +29,7 @@ NEXT_POST_TIME = None
 async def on_ready():
     logging.info('logged in as {0.user}'.format(client))
     logging.info(CHANNEL_ID)
+    # ループで次の投稿時間をチェック
     client.loop.create_task(check_next_post_time())
 
 # NEXT_POST_TIMEになった時に、指定のチャンネルにメッセージを送信
@@ -37,8 +38,10 @@ async def check_next_post_time():
     await client.wait_until_ready()
     channel = client.get_channel(CHANNEL_ID)
     while not client.is_closed():
+        # 次の投稿時間になったらメッセージを送信
         if NEXT_POST_TIME and datetime.datetime.now() >= NEXT_POST_TIME:
             await channel.send('はよ起きろデブ')
+            # 画像送信
             with open('kazuo.jpg', 'rb') as f:
                 picture = discord.File(f)
                 await channel.send(file=picture)
@@ -63,8 +66,11 @@ async def on_message(message):
         if message.attachments:
             for attachment in message.attachments:
                 if attachment.content_type.startswith('image/'):
+                    # 次の画像の投稿時間を設定
                     NEXT_POST_TIME = datetime.datetime.now() + datetime.timedelta(days=1, hours=2)
                     await message.reply(f'次は {NEXT_POST_TIME.strftime("%Y-%m-%d %H:%M:%S")} まで')
                     return
+    else:
+        await message.reply('お前もマッチョにならないか？')
 
 client.run(TOKEN)
