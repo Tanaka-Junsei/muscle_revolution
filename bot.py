@@ -40,7 +40,8 @@ async def check_next_post_time():
     while not client.is_closed():
         # 次の投稿時間になったらメッセージを送信
         if NEXT_POST_TIME and datetime.datetime.now() >= NEXT_POST_TIME:
-            await channel.send('KAZUO is WATCHING YOU')
+            user = await client.fetch_user(TARGET_USER_ID)
+            await channel.send(f'{user.mention} KAZUO is WATCHING YOU')
             NEXT_POST_TIME = None
         await asyncio.sleep(60)
 
