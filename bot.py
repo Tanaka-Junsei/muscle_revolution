@@ -28,7 +28,6 @@ NEXT_POST_TIME = None
 @client.event
 async def on_ready():
     logging.info('logged in as {0.user}'.format(client))
-    logging.info(CHANNEL_ID)
     # ループで次の投稿時間をチェック
     client.loop.create_task(check_next_post_time())
 
@@ -59,8 +58,6 @@ async def on_message(message):
     if message.content == '/muscle':
         await message.reply('痩せろデブ')
         return
-    
-    logging.info(f'author_id : {message.author.id}: {message.content}')
     # 画像を送信してから次の投稿までの時間を返信
     if message.author.id == TARGET_USER_ID:
         if message.attachments:
