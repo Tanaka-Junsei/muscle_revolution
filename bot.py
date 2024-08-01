@@ -5,6 +5,7 @@ import random
 import discord
 import logging
 from dotenv import load_dotenv
+import pytz
 
 # ログ設定
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s:%(message)s')
@@ -24,6 +25,7 @@ intents.messages = True
 client = discord.Client(intents=intents)
 
 NEXT_POST_TIME = None
+JST = pytz.timezone('Asia/Tokyo')  # 日本標準時
 
 # 起動時チェック
 @client.event
@@ -39,7 +41,7 @@ async def check_next_post_time():
     channel = client.get_channel(CHANNEL_ID)
     while not client.is_closed():
         # 次の投稿時間になったらメッセージを送信
-        if NEXT_POST_TIME and datetime.datetime.now() >= NEXT_POST_TIME:
+        if NEXT_POST_TIME and datetime.datetime.now(JST) >= NEXT_POST_TIME:
             user = await client.fetch_user(TARGET_USER_ID)
             await channel.send(f'{user.mention} KAZUO is WATCHING YOU')
             NEXT_POST_TIME = None
@@ -62,7 +64,7 @@ async def on_message(message):
             for attachment in message.attachments:
                 if attachment.content_type.startswith('image/'):
                     # 次の画像の投稿時間を設定
-                    NEXT_POST_TIME = datetime.datetime.now() + datetime.timedelta(days=1, hours=2)
+                    NEXT_POST_TIME = datetime.datetime.now(JST) + datetime.timedelta(days=1, hours=2)
                     await message.reply(f'次は {NEXT_POST_TIME.strftime("%Y-%m-%d %H:%M:%S")} まで')
                     return
     else:
