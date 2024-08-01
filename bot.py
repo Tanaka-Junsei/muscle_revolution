@@ -1,9 +1,10 @@
 import asyncio
 import datetime
-from dotenv import load_dotenv
 import os
+import random
 import discord
 import logging
+from dotenv import load_dotenv
 
 # ログ設定
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s:%(message)s')
@@ -39,11 +40,7 @@ async def check_next_post_time():
     while not client.is_closed():
         # 次の投稿時間になったらメッセージを送信
         if NEXT_POST_TIME and datetime.datetime.now() >= NEXT_POST_TIME:
-            await channel.send('はよ起きろデブ')
-            # 画像送信
-            with open('muscle.jpg', 'rb') as f:
-                picture = discord.File(f)
-                await channel.send(file=picture)
+            await channel.send('KAZUO is WATCHING YOU')
             NEXT_POST_TIME = None
         await asyncio.sleep(60)
 
@@ -68,6 +65,8 @@ async def on_message(message):
                     await message.reply(f'次は {NEXT_POST_TIME.strftime("%Y-%m-%d %H:%M:%S")} まで')
                     return
     else:
-        await message.reply('お前もマッチョにならないか？')
+        # 10%の確率でメッセージを送信
+        if random.random() < 0.1:
+            await message.reply('お前もマッチョにならないか？')
 
 client.run(TOKEN)
