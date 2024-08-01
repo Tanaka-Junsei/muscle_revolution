@@ -39,7 +39,7 @@ async def check_next_post_time():
     while not client.is_closed():
         if NEXT_POST_TIME and datetime.datetime.now() >= NEXT_POST_TIME:
             await channel.send('はよ起きろデブ')
-            with open('kaoru.jpg', 'rb') as f:
+            with open('kazuo.jpg', 'rb') as f:
                 picture = discord.File(f)
                 await channel.send(file=picture)
             NEXT_POST_TIME = None
