@@ -68,5 +68,6 @@ async def on_message(message):
         # 10%の確率でメッセージを送信
         if random.random() < 0.1:
             await message.reply('お前もマッチョにならないか？')
+            return
 
 client.run(TOKEN)
