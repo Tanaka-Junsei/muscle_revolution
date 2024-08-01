@@ -41,7 +41,7 @@ async def check_next_post_time():
         if NEXT_POST_TIME and datetime.datetime.now() >= NEXT_POST_TIME:
             await channel.send('はよ起きろデブ')
             # 画像送信
-            with open('kazuo.jpg', 'rb') as f:
+            with open('muscle.jpg', 'rb') as f:
                 picture = discord.File(f)
                 await channel.send(file=picture)
             NEXT_POST_TIME = None
