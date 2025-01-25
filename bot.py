@@ -15,8 +15,8 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s:%(mess
 load_dotenv()
 
 TOKEN = os.getenv('DISCORD_BOT_TOKEN')
-# CHANNEL_ID = int(os.getenv('PROD_CHANNEL_ID'))
-CHANNEL_ID = int(os.getenv('TEST_CHANNEL_ID'))
+CHANNEL_ID = int(os.getenv('PROD_CHANNEL_ID'))
+# CHANNEL_ID = int(os.getenv('TEST_CHANNEL_ID'))
 TARGET_USER_ID = int(os.getenv('TARGET_USER_ID'))
 
 intents = discord.Intents.default()
