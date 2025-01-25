@@ -28,6 +28,17 @@ bot = commands.Bot(command_prefix='!', intents=intents)
 NEXT_POST_TIME = None
 JST = pytz.timezone('Asia/Tokyo')
 
+muscle_messages = [
+    "イヤミか貴様ッッ",
+    "なにをしているッッ早く飲ませろッッッ",
+    "男子はね 誰でも一生のうち一回は地上最強ってのを夢見る",
+    "してェ…試合してェ～～～～～…",
+    "まだやるかい",
+    "なんだァ？てめェ……",
+    "鍛えることは女々しい",
+    "わたしは一向にかまわんッッ"
+]
+
 @bot.event
 async def on_ready():
     logging.info(f'logged in as {bot.user}')
@@ -45,7 +56,7 @@ async def on_message(message):
 
     if message.author.id != TARGET_USER_ID:
         if random.random() < 0.1:
-            await message.reply('お前もマッチョにならないか？')
+            await message.reply(random.choice(muscle_messages))
         return
 
     if not message.attachments:
