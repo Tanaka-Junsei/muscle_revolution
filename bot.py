@@ -113,7 +113,6 @@ def generate_weight_graph(dates, weights, filename='graph.png'):
     plt.xlabel('Date')
     plt.ylabel('Weight (kg)')
     plt.title('Weight Over Time')
-    plt.tight_layout()
     plt.savefig(filename)
     plt.close()
 
