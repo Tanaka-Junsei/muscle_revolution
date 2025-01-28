@@ -5,6 +5,8 @@ import os
 import random
 import logging
 
+from server import server_thread
+
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
@@ -147,4 +149,5 @@ async def graph_command(ctx):
 
     await ctx.send(file=discord.File('graph.png'))
 
+server_thread()
 bot.run(TOKEN)

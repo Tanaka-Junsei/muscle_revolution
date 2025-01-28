@@ -3,3 +3,5 @@ python-dotenv
 pytz
 numpy<2
 matplotlib
+fastapi
+uvicorn
